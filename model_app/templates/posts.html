@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Стена сообщений</title>
+    <title>Стена</title>
     <style>
-        /* ----- RESET & БАЗОВЫЕ СТИЛИ ----- */
         * {
             margin: 0;
             padding: 0;
@@ -13,359 +12,187 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #f5f7fb;
-            color: #1e293b;
+            background: #f4f6fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.5;
+            color: #1e2a3e;
             padding: 2rem 1rem;
         }
 
-        /* ----- КОНТЕЙНЕРЫ ----- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             background: #ffffff;
-            border-radius: 24px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            padding: 2rem 2rem 2.5rem;
+            border-radius: 28px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
         }
 
-        /* ----- ШАПКА / НАВИГАЦИЯ ----- */
-        .header {
+        /* навигация */
+        .nav-links {
             display: flex;
             justify-content: flex-end;
             gap: 1rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #e9edf2;
-            margin-bottom: 2rem;
             flex-wrap: wrap;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e9edf2;
         }
-
-        .nav-link {
+        .nav-links a {
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 500;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 1rem;
             border-radius: 40px;
-            transition: all 0.2s ease;
             background: #f1f5f9;
-            color: #1e293b;
+            color: #1f3a5f;
+            transition: 0.2s;
         }
-
-        .nav-link:hover {
+        .nav-links a:hover {
             background: #e2e8f0;
             transform: translateY(-1px);
         }
-
-        .nav-link.logout {
+        .logout-link {
             background: #fee2e2;
             color: #b91c1c;
         }
 
-        .nav-link.logout:hover {
-            background: #fecaca;
-        }
-
-        /* ----- ФОРМА ОТПРАВКИ СООБЩЕНИЯ ----- */
+        /* форма сообщения */
         .message-form {
-            background: #f8fafc;
+            background: #f9fbfd;
+            border-radius: 24px;
             padding: 1.5rem;
-            border-radius: 20px;
-            margin-bottom: 2.5rem;
-            border: 1px solid #eef2f6;
+            margin-bottom: 2rem;
+            border: 1px solid #eef2f8;
         }
-
-        .message-form h2 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #0f172a;
-        }
-
-        .form-group {
+        .message-form form p {
             margin-bottom: 1rem;
         }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
+        .message-form label {
             font-weight: 500;
-            margin-bottom: 0.4rem;
-            color: #334155;
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 0.85rem;
+            color: #2c3e5c;
         }
-
-        .form-group textarea,
-        .form-group input {
+        .message-form input, 
+        .message-form textarea {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 0.7rem 1rem;
+            border: 1px solid #cfdee9;
+            border-radius: 20px;
             font-family: inherit;
-            font-size: 0.95rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 16px;
-            background: #ffffff;
+            font-size: 0.9rem;
             transition: 0.2s;
         }
-
-        .form-group textarea:focus,
-        .form-group input:focus {
+        .message-form input:focus,
+        .message-form textarea:focus {
             outline: none;
             border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
         }
-
         button {
             background: #3b82f6;
             color: white;
             border: none;
-            padding: 0.7rem 1.5rem;
-            font-size: 0.9rem;
-            font-weight: 500;
+            padding: 0.6rem 1.5rem;
             border-radius: 40px;
+            font-weight: 500;
             cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
+            transition: background 0.2s;
         }
-
         button:hover {
             background: #2563eb;
         }
 
-        button:active {
-            transform: scale(0.97);
-        }
-
-        /* ----- СЕТКА ДЛЯ ДВУХ КОЛОНОК (ПОЛЬЗОВАТЕЛИ + СООБЩЕНИЯ) ----- */
+        /* две колонки */
         .two-columns {
             display: flex;
             gap: 2rem;
             flex-wrap: wrap;
         }
-
-        .users-section,
-        .messages-section {
+        .users-card, .messages-card {
             flex: 1;
-            min-width: 240px;
             background: #ffffff;
             border-radius: 20px;
-            border: 1px solid #edf2f7;
+            border: 1px solid #ecf3f9;
             overflow: hidden;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
         }
-        .section-title {
-            font-size: 1.1rem;
+        .card-title {
             font-weight: 600;
+            font-size: 1.1rem;
             padding: 1rem 1.5rem;
-            background: #f9fbfd;
-            border-bottom: 1px solid #edf2f7;
-            color: #0f172a;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            background: #fafdff;
+            border-bottom: 1px solid #ecf3f9;
         }
-
-        .section-title span {
-            font-size: 1.2rem;
-        }
-
-        /* ----- СПИСКИ ----- */
-        .user-list,
-        .message-list {
+        .user-list, .msg-list {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-
-        .user-item,
-        .message-item {
-            padding: 0.85rem 1.5rem;
-            border-bottom: 1px solid #f0f4f9;
-            transition: background 0.15s;
-        }
-
-        .user-item:last-child,
-        .message-item:last-child {
-            border-bottom: none;
-        }
-
-        .user-item:hover {
-            background: #fafcff;
-        }
-
-        .user-name {
-            font-weight: 600;
-            color: #0f172a;
-        }
-
-        .user-details {
-            font-size: 0.8rem;
-            color: #5b6e8c;
-            margin-top: 2px;
-        }
-
-        .message-text {
-            font-size: 0.95rem;
-            color: #1e293b;
-            margin-bottom: 6px;
-            word-break: break-word;
-        }
-
-        .message-meta {
-            display: flex;
-            gap: 0.75rem;
-            font-size: 0.7rem;
-            color: #7e8b9e;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .message-author {
-            font-weight: 500;
-            background: #eef2ff;
-            padding: 0.2rem 0.5rem;
-            border-radius: 30px;
-            color: #1e40af;
-        }
-
-        .message-date {
-            font-family: monospace;
-            font-size: 0.7rem;
-        }
-
-        /* ----- ПУСТЫЕ СОСТОЯНИЯ ----- */
-        .empty-state {
-            padding: 2rem 1.5rem;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 0.85rem;
-        }
-
-        /* ----- АДАПТИВНОСТЬ ----- */
-        @media (max-width: 800px) {
-            .container {
-                padding: 1.5rem;
-            }
-            .two-columns {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-            .header {
-                justify-content: center;
-            }
-        }
-
-        /* небольшие отступы для формы, если нет авторизации */
-        .info-message {
-            background: #fef9e3;
-            padding: 1rem;
-            border-radius: 16px;
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #b45309;
+        .user-list li, .msg-list li {
+            padding: 0.8rem 1.5rem;
+            border-bottom: 1px solid #f0f4fa;
             font-size: 0.9rem;
+        }
+        .user-list li:last-child, .msg-list li:last-child {
+        border-bottom: none;
+        }
+        .msg-meta {
+            font-size: 0.75rem;
+            color: #6c86a3;
+            margin-top: 5px;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 1.2rem; }
+            .two-columns { flex-direction: column; }
         }
     </style>
 </head>
 <body>
- {% if user.is_authenticated %}
-        {% include "logout.html" %}
-        <a href="/reset_password">Сменить пароль</a>
-    {% else %}
-        <a href="/login">Войти</a>
-        <a href="/register">Регистрация</a>
-    {% endif %}
 <div class="container">
-    <!-- ШАПКА С АВТОРИЗАЦИЕЙ (имитация залогиненного пользователя) -->
-    <div class="header">
-        <!-- При авторизации показываем выход и смену пароля -->
-        <a href="#" class="nav-link logout">🚪 Выйти</a>
-        <a href="#" class="nav-link">🔐 Сменить пароль</a>
-        <!-- если бы пользователь не был авторизован — были бы ссылки Войти / Регистрация -->
-        <!-- для демонстрации CSS мы используем состояние "авторизован" -->
+    <div class="nav-links">
+        {% if user.is_authenticated %}
+            {% include "logout.html" %}
+            <a href="/reset_password">Сменить пароль</a>
+        {% else %}
+            <a href="/login">Войти</a>
+            <a href="/register">Регистрация</a>
+        {% endif %}
     </div>
 
-    <!-- ФОРМА ОТПРАВКИ СООБЩЕНИЯ (доступна только авторизованным) -->
+    {% if request.user.is_authenticated %}
     <div class="message-form">
-        <h2>✏️ Написать сообщение</h2>
-        {% if request.user.is_authenticated %}
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <!-- CSRF токен в реальном Django, здесь статическая демо-форма -->
-            <div class="form-group">
-                <label for="id_msg">Текст сообщения</label>
-                <textarea name="msg" id="id_msg" rows="3" placeholder="Поделитесь мыслью..."></textarea>
-            </div>
-            <button type="submit">Отправить →</button>
-
+            <button type="submit">Отправить</button>
         </form>
-        {% endif %}
     </div>
-<ul>
-    {% for user in users %}
-        <li> {{user.username}} {{user.first_name}} {{user.last_name}} </li>
-    {% endfor %}
+    {% endif %}
 
-    </ul>
-
-    <ul>
-    {% for msg in msgs %}
-        <li user="{{msg.user.username}}" > {{msg.msg}} {{msg.dt}} {{msg.user.username}} </li>
-    {% endfor %}
-    </ul>
-
-
-    <!-- ДВЕ КОЛОНКИ: ПОЛЬЗОВАТЕЛИ + СООБЩЕНИЯ -->
     <div class="two-columns">
-        <!-- Блок пользователей -->
-        <div class="users-section">
-            <div class="section-title">
-                <span>👥</span> Участники
-            </div>
+        <div class="users-card">
+            <div class="card-title">👥 Участники</div>
             <ul class="user-list">
-                <li class="user-item">
-                    <div class="user-name">antibev</div>
-                    <div class="user-details">beb</div>
-                </li>
-                <li class="user-item">
-                    <div class="user-name">шлюшкахохотушка</div>
-                    <div class="user-details">карательанусов</div>
-                </li>
-                <li class="user-item">
-                    <div class="user-name">дикпиковаядама</div>
-                    <div class="user-details">ветер</div>
-                </li>
-                <li class="user-item">
-                    <div class="user-name">ветер</div>
-                    <div class="user-details">ветер</div>
-                </li>
-                <li class="user-item">
-                    <div class="user-name">мусор</div>
-                    <div class="user-details">жижа</div>
-                </li>
+                {% for user in users %}
+                    <li> {{user.username}} {{user.first_name}} {{user.last_name}} </li>
+                {% endfor %}
             </ul>
         </div>
 
-        <!-- Блок сообщений -->
-        <div class="messages-section">
-            <div class="section-title">
-                <span>💬</span> Лента сообщений
-            </div>
-            <ul class="message-list">
-                <li class="message-item" user="alex_kuzmin">
-                    <div class="message-text">гойда</div>
-                    <div class="message-meta">
-                        <span class="message-author">ветер</span>
-                        <span class="message-date">сегодня, 14:23</span>
-                    </div>
-                </li>
-
+        <div class="messages-card">
+            <div class="card-title">💬 Сообщения</div>
+            <ul class="msg-list">
+                {% for msg in msgs %}
+                    <li user="{{msg.user.username}}">
+                        {{msg.msg}}
+                        <div class="msg-meta">{{msg.dt}} · {{msg.user.username}}</div>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
     </div>
 </div>
-
-<!-- Примечание: в реальном проекте данные подставляются из БД через шаблонизатор Django.
-     Данный пример демонстрирует полностью стилизованную стену с простым, минималистичным дизайном.
-     Адаптивно, чисто, воздушно. -->
 </body>
 </html>
