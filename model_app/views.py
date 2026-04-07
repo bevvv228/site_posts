@@ -4,26 +4,29 @@ from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,Passwo
 from django.contrib.auth import login,logout,authenticate,update_session_auth_hash
 
 
+from django.shortcuts import render, redirect
+from .models import Message, MessageForm
+
 def posts(request):
-
     if request.method == "POST":
-        form = MessageForm(request.POST)
-        user = request.user
-        if form.is_valid() and user.is_authenticated:
+        form = MessageForm(request.POST, request.FILES)
+        if form.is_valid() and request.user.is_authenticated:
             instance = form.save(commit=False)
-            instance.user = user
+            instance.user = request.user
             instance.save()
-        return redirect("/posts")
+            return redirect("/posts")
+    else:
+        form = MessageForm()
 
-    form = MessageForm()
     users = User.objects.all()
-    msgs = Message.objects.select_related('user').all()
+    msgs = Message.objects.select_related('user').all().order_by('-dt')  # новые сверху
+
     data = {
-        'users':  users,
-        'msgs' : msgs,
-        'form' : form,
+        'users': users,
+        'msgs': msgs,
+        'form': form,
     }
-    return render(request,"posts.html",data)
+    return render(request, "posts.html", data)
 
 
 def index(request):
