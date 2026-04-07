@@ -2,8 +2,10 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
     <style>
+        /* ----- RESET & БАЗОВЫЕ СТИЛИ ----- */
         * {
             margin: 0;
             padding: 0;
@@ -11,8 +13,10 @@
         }
 
         body {
-            background: #f4f6fa;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f4f7fc;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            color: #1a2c3e;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -20,87 +24,111 @@
             padding: 1.5rem;
         }
 
+        /* КАРТОЧКА ГЛАВНОЙ */
         .home-card {
-            background: #ffffff;
-            max-width: 500px;
+            max-width: 520px;
             width: 100%;
-            padding: 2rem 2rem 2.2rem;
+            background: #ffffff;
             border-radius: 32px;
             box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.01);
-            text-align: center;
+            padding: 2rem 2rem 2.2rem;
+            transition: all 0.2s ease;
         }
 
+        /* ЗАГОЛОВОК */
         h2 {
-            font-size: 2rem;
+            font-size: 1.9rem;
             font-weight: 600;
+            letter-spacing: -0.01em;
             color: #0f2b3d;
             margin-bottom: 1rem;
-            letter-spacing: -0.3px;
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
         }
 
+        /* ПРИВЕТСТВИЕ */
         .greeting {
-            font-size: 1.1rem;
-            color: #2c3e50;
+            font-size: 1rem;
             background: #f8fafd;
-            padding: 0.8rem 1rem;
-            border-radius: 60px;
-            margin: 1rem 0 1.8rem 0;
-            display: inline-block;
-            width: auto;
+            padding: 0.9rem 1rem;
+            border-radius: 20px;
+            margin: 1.2rem 0 1.5rem 0;
+            color: #2c4c6e;
+            border: 1px solid #e4edf5;
+            font-weight: 450;
         }
 
-        .nav-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 0.9rem;
-            margin: 1.5rem 0 1.2rem;
-        }
-
-        .nav-buttons a, .logout-link {
+        /* ССЫЛКА НА ПОСТЫ — ВЫДЕЛЕННАЯ КНОПКА */
+        .posts-link {
             display: inline-block;
+            background: #3b82f6;
+            color: white;
             text-decoration: none;
             font-weight: 500;
-            padding: 0.7rem 1rem;
-            border-radius: 48px;
-            transition: all 0.2s ease;
-            background: #f1f5f9;
-            color: #1f3a5f;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
             font-size: 0.95rem;
+            transition: background 0.2s, transform 0.05s;
+            margin-bottom: 1.8rem;
+            border: none;
+            cursor: pointer;
+            text-align: center;
         }
-
-        .nav-buttons a:hover {
-            background: #e2e8f0;
+        .posts-link:hover {
+            background: #2563eb;
             transform: translateY(-1px);
         }
 
-        .primary-link {
-            background: #3b82f6;
-            color: white !important;
+        /* БЛОК ССЫЛОК АВТОРИЗАЦИИ */
+        .auth-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e9edf2;
         }
-
-        .primary-link:hover {
-            background: #2563eb;
+        .auth-links a {
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.45rem 1.2rem;
+            border-radius: 40px;
+            background: #f1f5f9;
+            color: #1f4a76;
+            transition: all 0.2s;
+            border: 1px solid transparent;
         }
-
-        .logout-style {
-            background: #fee2e2;
+        .auth-links a:hover {
+            background: #e2e8f0;
+            border-color: #cbdde9;
+            transform: translateY(-1px);
+        }
+        /* стили для logout (include) будут наследоваться */
+        .auth-links .logout-link,
+        .auth-links a[href="/logout"] {
+            background: #fee8e8;
             color: #b91c1c;
         }
-
-        .logout-style:hover {
-            background: #fecaca;
+        .auth-links .logout-link:hover,
+        .auth-links a[href="/logout"]:hover {
+            background: #fed7d7;
         }
 
-        hr {
-            margin: 1rem 0;
-            border: none;
-            border-top: 1px solid #eef2f8;
+        /* небольшая адаптация */
+        @media (max-width: 500px) {
+            .home-card {
+                padding: 1.5rem;
+            }
+            h2 {
+                font-size: 1.6rem;
+            }
         }
 
-        .footer-note {
-            font-size: 0.75rem;
-            color: #8ba0bc;
-            margin-top: 1.5rem;
+        /* чёткие границы и текст — используем subpixel rendering */
+        body, button, input, a {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
     </style>
 </head>
@@ -110,29 +138,14 @@
     <div class="greeting">
         Привет, {{ user.username|default:"Гость" }}!
     </div>
-
-    <div class="nav-buttons">
-        <a href="posts" class="primary-link">📝 Посты</a>
-    </div>
-
-    {% if user.is_authenticated %}
-        <div class="nav-buttons">
+    <a href="posts" class="posts-link">📄 Посты</a><div class="auth-links">
+        {% if user.is_authenticated %}
             {% include "logout.html" %}
             <a href="/reset_password">Сменить пароль</a>
-        </div>
-    {% else %}
-        <div class="nav-buttons">
+        {% else %}
             <a href="/login">Войти</a>
             <a href="/register">Регистрация</a>
-        </div>
-    {% endif %}
-
-    <div class="footer-note">
-<<<<<<< HEAD
-        gigabeb
-=======
-        Минималистичная стена сообщений
->>>>>>> 4d0284e7e1492bcdf19e3db1fe707fe7705fecec
+        {% endif %}
     </div>
 </div>
 </body>

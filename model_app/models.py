@@ -13,20 +13,10 @@ from django.contrib.auth.models import User
 #     def __str__(self):
 #         return self.name
 
-from django.db import models
-from django.contrib.auth.models import User
-
 class Message(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages')
-    msg = models.TextField(verbose_name="Сообщение")
-    dt = models.DateTimeField(auto_now_add=True, verbose_name="Дата и время")
-    attachment = models.FileField(upload_to='uploads/%Y/%m/%d/', blank=True, null=True, verbose_name="Файл (фото/видео)")
-
-    class Meta:
-        ordering = ['-dt']  # сортировка по убыванию даты (новые сверху)
-
-    def str(self):
-        return f"{self.user.username}: {self.msg[:30]}"
+    msg = models.TextField(max_length=200)
+    dt = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
 
 
 class MessageForm(ModelForm):
