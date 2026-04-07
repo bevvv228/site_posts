@@ -143,24 +143,6 @@
             color: #6c86a3;
             margin-top: 5px;
         }
-        .attachment {
-            margin-top: 8px;
-        }
-        .attachment img, .attachment video {
-            max-width: 100%;
-            border-radius: 16px;
-            margin-top: 6px;
-            max-height: 300px;
-            object-fit: cover;
-        }
-        .attachment a {
-            font-size: 0.8rem;
-            color: #3b82f6;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
         @media (max-width: 700px) {
             .container { padding: 1.2rem; }
             .two-columns { flex-direction: column; }
@@ -181,7 +163,7 @@
 
     {% if request.user.is_authenticated %}
     <div class="message-form">
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Отправить</button>
@@ -200,28 +182,12 @@
         </div>
 
         <div class="messages-card">
-            <div class="card-title">💬 Сообщения (новые сверху)</div>
+            <div class="card-title">💬 Сообщения</div>
             <ul class="msg-list">
                 {% for msg in msgs reversed %}
                     <li user="{{msg.user.username}}">
-                        <div>{{msg.msg}}</div>
-                        {% if msg.attachment %}
-                        <div class="attachment">
-                            {% with file_ext=msg.attachment.name|lower %}
-                                {% if '.jpg' in file_ext or '.jpeg' in file_ext or '.png' in file_ext or '.gif' in file_ext %}
-                                    <img src="{{ msg.attachment.url }}" alt="вложение">
-                                {% elif '.mp4' in file_ext or '.webm' in file_ext or '.mov' in file_ext %}
-                                    <video controls>
-                                        <source src="{{ msg.attachment.url }}" type="video/mp4">
-                                        Ваш браузер не поддерживает видео.
-                                    </video>
-                                {% else %}
-                                    <a href="{{ msg.attachment.url }}" download>📎 Скачать файл</a>
-                                {% endif %}
-                            {% endwith %}
-                        </div>
-                        {% endif %}
-                        <div class="msg-meta">{{ msg.dt|date:"d.m.Y H:i" }} · {{ msg.user.username }}</div>
+                        {{msg.msg}}
+                        <div class="msg-meta">{{msg.dt}} · {{msg.user.username}}</div>
                     </li>
                 {% endfor %}
             </ul>
