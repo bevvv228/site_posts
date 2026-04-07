@@ -1,40 +1,346 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Стена</title>
+    <title>Стена сообщений</title>
+    <style>
+        /* ----- RESET & БАЗОВЫЕ СТИЛИ ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+        }
+
+        /* ----- КОНТЕЙНЕРЫ ----- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            padding: 2rem 2rem 2.5rem;
+        }
+
+        /* ----- ШАПКА / НАВИГАЦИЯ ----- */
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e9edf2;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            transition: all 0.2s ease;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .nav-link:hover {
+            background: #e2e8f0;
+            transform: translateY(-1px);
+        }
+
+        .nav-link.logout {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .nav-link.logout:hover {
+            background: #fecaca;
+        }
+
+        /* ----- ФОРМА ОТПРАВКИ СООБЩЕНИЯ ----- */
+        .message-form {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin-bottom: 2.5rem;
+            border: 1px solid #eef2f6;
+        }
+
+        .message-form h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #0f172a;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            color: #334155;
+        }
+
+        .form-group textarea,
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 16px;
+            background: #ffffff;
+            transition: 0.2s;
+        }
+
+        .form-group textarea:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        button:hover {
+            background: #2563eb;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        /* ----- СЕТКА ДЛЯ ДВУХ КОЛОНОК (ПОЛЬЗОВАТЕЛИ + СООБЩЕНИЯ) ----- */
+        .two-columns {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .users-section,
+        .messages-section {
+            flex: 1;
+            min-width: 240px;
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid #edf2f7;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 1rem 1.5rem;
+            background: #f9fbfd;
+            border-bottom: 1px solid #edf2f7;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title span {
+            font-size: 1.2rem;
+        }
+
+        /* ----- СПИСКИ ----- */
+        .user-list,
+        .message-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .user-item,
+        .message-item {
+            padding: 0.85rem 1.5rem;
+            border-bottom: 1px solid #f0f4f9;
+            transition: background 0.15s;
+        }
+
+        .user-item:last-child,
+        .message-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-item:hover {
+            background: #fafcff;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .user-details {
+            font-size: 0.8rem;
+            color: #5b6e8c;
+            margin-top: 2px;
+        }
+
+        .message-text {
+            font-size: 0.95rem;
+            color: #1e293b;
+            margin-bottom: 6px;
+            word-break: break-word;
+        }
+
+        .message-meta {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.7rem;
+            color: #7e8b9e;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .message-author {
+            font-weight: 500;
+            background: #eef2ff;
+            padding: 0.2rem 0.5rem;
+            border-radius: 30px;
+            color: #1e40af;
+        }
+
+        .message-date {
+            font-family: monospace;
+            font-size: 0.7rem;
+        }
+
+        /* ----- ПУСТЫЕ СОСТОЯНИЯ ----- */
+        .empty-state {
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        /* ----- АДАПТИВНОСТЬ ----- */
+        @media (max-width: 800px) {
+            .container {
+                padding: 1.5rem;
+            }
+            .two-columns {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .header {
+                justify-content: center;
+            }
+        }
+
+        /* небольшие отступы для формы, если нет авторизации */
+        .info-message {
+            background: #fef9e3;
+            padding: 1rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #b45309;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <!-- ШАПКА С АВТОРИЗАЦИЕЙ (имитация залогиненного пользователя) -->
+    <div class="header">
+        <!-- При авторизации показываем выход и смену пароля -->
+        <a href="#" class="nav-link logout">🚪 Выйти</a>
+        <a href="#" class="nav-link">🔐 Сменить пароль</a>
+        <!-- если бы пользователь не был авторизован — были бы ссылки Войти / Регистрация -->
+        <!-- для демонстрации CSS мы используем состояние "авторизован" -->
+    </div>
 
-    {% if user.is_authenticated %}
-        {% include "logout.html" %}
-        <a href="/reset_password">Сменить пароль</a>
-    {% else %}
-        <a href="/login">Войти</a>
-        <a href="/register">Регистрация</a>
-    {% endif %}
+    <!-- ФОРМА ОТПРАВКИ СООБЩЕНИЯ (доступна только авторизованным) -->
+    <div class="message-form">
+        <h2>✏️ Написать сообщение</h2>
+        <form method="POST">
+            <!-- CSRF токен в реальном Django, здесь статическая демо-форма -->
+            <div class="form-group">
+                <label for="id_msg">Текст сообщения</label>
+                <textarea name="msg" id="id_msg" rows="3" placeholder="Поделитесь мыслью..."></textarea>
+            </div>
+            <button type="submit">Отправить →</button>
+        </form>
+    </div>
 
+    <!-- ДВЕ КОЛОНКИ: ПОЛЬЗОВАТЕЛИ + СООБЩЕНИЯ -->
+    <div class="two-columns">
+        <!-- Блок пользователей -->
+        <div class="users-section">
+            <div class="section-title">
+                <span>👥</span> Участники
+            </div>
+            <ul class="user-list">
+                <li class="user-item">
+                    <div class="user-name">antibev</div>
+                    <div class="user-details">beb</div>
+                </li>
+                <li class="user-item">
+                    <div class="user-name">шлюшкахохотушка</div>
+                    <div class="user-details">карательанусов</div>
+                </li>
+                <li class="user-item">
+                    <div class="user-name">дикпиковаядама</div>
+                    <div class="user-details">ветер</div>
+                </li>
+                <li class="user-item">
+                    <div class="user-name">ветер</div>
+                    <div class="user-details">ветер</div>
+                </li>
+                <li class="user-item">
+                    <div class="user-name">мусор</div>
+                    <div class="user-details">жижа</div>
+                </li>
+            </ul>
+        </div>
 
-    {% if request.user.is_authenticated %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Отправить</button>
-    </form>
-    {% endif %}
+        <!-- Блок сообщений -->
+        <div class="messages-section">
+            <div class="section-title">
+                <span>💬</span> Лента сообщений
+            </div>
+            <ul class="message-list">
+                <li class="message-item" user="alex_kuzmin">
+                    <div class="message-text">гойда</div>
+                    <div class="message-meta">
+                        <span class="message-author">ветер</span>
+                        <span class="message-date">сегодня, 14:23</span>
+                    </div>
+                </li>
 
-    <ul>
-    {% for user in users %}
-        <li> {{user.username}} {{user.first_name}} {{user.last_name}} </li>
-    {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
 
-    </ul>
-
-    <ul>
-    {% for msg in msgs %}
-        <li user="{{msg.user.username}}" > {{msg.msg}} {{msg.dt}} {{msg.user.username}} </li>
-    {% endfor %}
-    </ul>
+<!-- Примечание: в реальном проекте данные подставляются из БД через шаблонизатор Django.
+     Данный пример демонстрирует полностью стилизованную стену с простым, минималистичным дизайном.
+     Адаптивно, чисто, воздушно. -->
 </body>
 </html>
