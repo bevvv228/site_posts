@@ -8,7 +8,10 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
+
+
 """
+import os
 import dj_database_url
 from pathlib import Path
 
@@ -27,7 +30,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = []
 #s
-import os
+
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
