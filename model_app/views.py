@@ -7,7 +7,7 @@ from django.contrib.auth import login,logout,authenticate,update_session_auth_ha
 def posts(request):
 
     if request.method == "POST":
-        form = MessageForm(request.POST)
+        form = MessageForm(request.POST, request.FILES)
         user = request.user
         if form.is_valid() and user.is_authenticated:
             instance = form.save(commit=False)

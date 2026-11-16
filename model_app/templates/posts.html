@@ -168,7 +168,7 @@
 
     {% if request.user.is_authenticated %}
     <div class="message-form">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Отправить</button>
@@ -190,9 +190,15 @@
             <div class="card-title">💬 Сообщения</div>
             <ul class="msg-list">
                 {% for msg in msgs reversed %}
-                    <li user="{{msg.user.username}}">
-                        {{msg.msg}}
-                        <div class="msg-meta">{{msg.dt}} · {{msg.user.username}}</div>
+                        {% if msg.media %}
+                            {% with u=msg.media.url|lower %}
+                                {% if ".mp4" in u or ".webm" in u or ".mov" in u %}
+                                    <video controls src="{{ msg.media.url }}" style="max-width:100%; border-radius:14px; margin-top:8px;"></video>
+                                {% else %}
+                                    <img src="{{ msg.media.url }}" style="max-width:100%; border-radius:14px; margin-top:8px;">
+                                {% endif %}
+                            {% endwith %}
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul>
