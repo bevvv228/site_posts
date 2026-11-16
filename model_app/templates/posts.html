@@ -188,8 +188,10 @@
 
         <div class="messages-card">
             <div class="card-title">💬 Сообщения</div>
-            <ul class="msg-list">
+                        <ul class="msg-list">
                 {% for msg in msgs reversed %}
+                    <li user="{{msg.user.username}}">
+                        {{msg.msg}}
                         {% if msg.media %}
                             {% with u=msg.media.url|lower %}
                                 {% if ".mp4" in u or ".webm" in u or ".mov" in u %}
@@ -199,6 +201,7 @@
                                 {% endif %}
                             {% endwith %}
                         {% endif %}
+                        <div class="msg-meta">{{msg.dt}} · {{msg.user.username}}</div>
                     </li>
                 {% endfor %}
             </ul>
