@@ -188,7 +188,7 @@
 
         <div class="messages-card">
             <div class="card-title">💬 Сообщения</div>
-                        <ul class="msg-list">
+            <ul class="msg-list">
                 {% for msg in msgs reversed %}
                     <li user="{{msg.user.username}}">
                         {{msg.msg}}
