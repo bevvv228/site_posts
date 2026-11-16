@@ -10,74 +10,84 @@
             box-sizing: border-box;
         }
         body {
-            background: #f4f6fa;
+            background: linear-gradient(160deg, #D9E7E8 0%, #C3D7DA 100%);
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 1rem;
+            color: #25252B;
         }
         .register-card {
-            background: white;
+            background: #ffffff;
             max-width: 460px;
             width: 100%;
             padding: 2rem 1.8rem;
-            border-radius: 32px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+            border-radius: 28px;
+            box-shadow: 0 16px 36px rgba(37, 37, 43, 0.10);
             text-align: center;
         }
         h2 {
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1.8rem;
             margin-bottom: 1.5rem;
-            color: #0f2b3d;
+            color: #25252B;
+            border-bottom: 4px solid #528A9A;
+            display: inline-block;
+            padding-bottom: 0.3rem;
         }
         form p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.1rem;
             text-align: left;
         }
         label {
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.85rem;
-            color: #2c3e50;
+            color: #2C4A54;
             display: block;
             margin-bottom: 0.3rem;
         }
         input {
             width: 100%;
             padding: 0.7rem 1rem;
-            border: 1px solid #cfdee9;
-            border-radius: 24px;
+            border: 1px solid #BFD6DA;
+            border-radius: 18px;
             font-size: 0.9rem;
             font-family: inherit;
             transition: 0.2s;
+            background: #FBFDFD;
         }
         input:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+            border-color: #528A9A;
+            box-shadow: 0 0 0 3px rgba(82, 138, 154, 0.15);
+            background: #ffffff;
         }
         input[type="submit"] {
-            background: #3b82f6;
-            color: white;
+            background: #528A9A;
+            color: #ffffff;
             font-weight: 600;
             border: none;
             cursor: pointer;
             margin-top: 0.5rem;
+            border-radius: 40px;
         }
         input[type="submit"]:hover {
-            background: #2563eb;
+            background: #406E7B;
         }
         .back-link {
             margin-top: 1.5rem;
         }
-        .back-link a {
-            color: #3b82f6;
+        .back-link a,
+        p a {
+            color: #528A9A;
             text-decoration: none;
             font-size: 0.85rem;
+            font-weight: 600;
         }
-        .back-link a:hover {
+        .back-link a:hover,
+        p a:hover {
             text-decoration: underline;
         }
     </style>

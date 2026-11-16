@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная</title>
     <style>
-        /* ----- RESET & БАЗОВЫЕ СТИЛИ ----- */
         * {
             margin: 0;
             padding: 0;
@@ -13,10 +12,10 @@
         }
 
         body {
-            background: #f4f7fc;
+            background: linear-gradient(160deg, #D9E7E8 0%, #C3D7DA 100%);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.5;
-            color: #1a2c3e;
+            color: #25252B;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,106 +28,89 @@
             max-width: 520px;
             width: 100%;
             background: #ffffff;
-            border-radius: 32px;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.01);
+            border-radius: 28px;
+            box-shadow: 0 16px 36px rgba(37, 37, 43, 0.10);
             padding: 2rem 2rem 2.2rem;
-            transition: all 0.2s ease;
         }
 
         /* ЗАГОЛОВОК */
         h2 {
             font-size: 1.9rem;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: -0.01em;
-            color: #0f2b3d;
+            color: #25252B;
             margin-bottom: 1rem;
-            border-left: 4px solid #3b82f6;
+            border-left: 5px solid #528A9A;
             padding-left: 1rem;
         }
 
         /* ПРИВЕТСТВИЕ */
         .greeting {
             font-size: 1rem;
-            background: #f8fafd;
+            background: #EDF4F5;
             padding: 0.9rem 1rem;
-            border-radius: 20px;
+            border-radius: 18px;
             margin: 1.2rem 0 1.5rem 0;
-            color: #2c4c6e;
-            border: 1px solid #e4edf5;
-            font-weight: 450;
+            color: #25252B;
+            border: 1px solid #D9E7E8;
+            font-weight: 500;
         }
 
-        /* ССЫЛКА НА ПОСТЫ — ВЫДЕЛЕННАЯ КНОПКА */
+        /* КНОПКА ПОСТОВ */
         .posts-link {
             display: inline-block;
-            background: #3b82f6;
-            color: white;
+            background: #528A9A;
+            color: #ffffff;
             text-decoration: none;
-            font-weight: 500;
-            padding: 0.7rem 1.5rem;
+            font-weight: 600;
+            padding: 0.75rem 1.8rem;
             border-radius: 40px;
             font-size: 0.95rem;
             transition: background 0.2s, transform 0.05s;
             margin-bottom: 1.8rem;
-            border: none;
-            cursor: pointer;
-            text-align: center;
         }
         .posts-link:hover {
-            background: #2563eb;
+            background: #406E7B;
             transform: translateY(-1px);
         }
 
-        /* БЛОК ССЫЛОК АВТОРИЗАЦИИ */
+        /* ССЫЛКИ АВТОРИЗАЦИИ */
         .auth-links {
             display: flex;
             flex-wrap: wrap;
             gap: 0.8rem;
             margin-top: 0.5rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e9edf2;
+            padding-top: 1.2rem;
+            border-top: 1px solid #E3EDEF;
         }
         .auth-links a {
             text-decoration: none;
             font-size: 0.9rem;
-            font-weight: 500;
-            padding: 0.45rem 1.2rem;
+            font-weight: 600;
+            padding: 0.5rem 1.3rem;
             border-radius: 40px;
-            background: #f1f5f9;
-            color: #1f4a76;
+            background: #EAF2F3;
+            color: #2C4A54;
             transition: all 0.2s;
-            border: 1px solid transparent;
         }
         .auth-links a:hover {
-            background: #e2e8f0;
-            border-color: #cbdde9;
+            background: #D9E7E8;
             transform: translateY(-1px);
         }
-        /* стили для logout (include) будут наследоваться */
+        /* ВЫХОД — ТЁМНАЯ КНОПКА */
         .auth-links .logout-link,
         .auth-links a[href="/logout"] {
-            background: #fee8e8;
-            color: #b91c1c;
+            background: #25252B;
+            color: #D9E7E8;
         }
         .auth-links .logout-link:hover,
         .auth-links a[href="/logout"]:hover {
-            background: #fed7d7;
+            background: #3A3A42;
         }
 
-        /* небольшая адаптация */
         @media (max-width: 500px) {
-            .home-card {
-                padding: 1.5rem;
-            }
-            h2 {
-                font-size: 1.6rem;
-            }
-        }
-
-        /* чёткие границы и текст — используем subpixel rendering */
-        body, button, input, a {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            .home-card { padding: 1.5rem; }
+            h2 { font-size: 1.6rem; }
         }
     </style>
 </head>

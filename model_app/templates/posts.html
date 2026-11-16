@@ -12,10 +12,10 @@
         }
 
         body {
-            background: #f4f6fa;
+            background: #D9E7E8;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.5;
-            color: #1e2a3e;
+            color: #25252B;
             padding: 2rem 1rem;
         }
 
@@ -24,7 +24,7 @@
             margin: 0 auto;
             background: #ffffff;
             border-radius: 28px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 16px 36px rgba(37, 37, 43, 0.10);
             padding: 2rem;
         }
 
@@ -36,73 +36,77 @@
             flex-wrap: wrap;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid #e9edf2;
+            border-bottom: 1px solid #E3EDEF;
         }
         .nav-links a {
             text-decoration: none;
             font-size: 0.9rem;
-            font-weight: 500;
-            padding: 0.4rem 1rem;
+            font-weight: 600;
+            padding: 0.45rem 1.1rem;
             border-radius: 40px;
-            background: #f1f5f9;
-            color: #1f3a5f;
+            background: #EAF2F3;
+            color: #2C4A54;
             transition: 0.2s;
         }
         .nav-links a:hover {
-            background: #e2e8f0;
+            background: #D9E7E8;
             transform: translateY(-1px);
         }
         .logout-link {
-            background: #fee2e2;
-            color: #b91c1c;
+            background: #25252B !important;
+            color: #D9E7E8 !important;
+        }
+        .logout-link:hover {
+            background: #3A3A42 !important;
         }
 
         /* форма сообщения */
         .message-form {
-            background: #f9fbfd;
-            border-radius: 24px;
+            background: #F2F7F8;
+            border-radius: 22px;
             padding: 1.5rem;
             margin-bottom: 2rem;
-            border: 1px solid #eef2f8;
+            border: 1px solid #DFE9EB;
         }
         .message-form form p {
             margin-bottom: 1rem;
         }
         .message-form label {
-            font-weight: 500;
+            font-weight: 600;
             display: block;
             margin-bottom: 0.3rem;
             font-size: 0.85rem;
-            color: #2c3e5c;
+            color: #2C4A54;
         }
         .message-form input,
         .message-form textarea {
             width: 100%;
             padding: 0.7rem 1rem;
-            border: 1px solid #cfdee9;
-            border-radius: 20px;
+            border: 1px solid #BFD6DA;
+            border-radius: 18px;
             font-family: inherit;
             font-size: 0.9rem;
             transition: 0.2s;
+            background: #ffffff;
         }
         .message-form input:focus,
         .message-form textarea:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+            border-color: #528A9A;
+            box-shadow: 0 0 0 3px rgba(82, 138, 154, 0.15);
         }
         button {
-            background: #3b82f6;
-            color: white;
+            background: #528A9A;
+            color: #ffffff;
             border: none;
-            padding: 0.6rem 1.5rem;
+            padding: 0.65rem 1.6rem;
             border-radius: 40px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: background 0.2s;
         }
         button:hover {
-            background: #2563eb;
+            background: #406E7B;
         }
 
         /* две колонки */
@@ -115,15 +119,16 @@
             flex: 1;
             background: #ffffff;
             border-radius: 20px;
-            border: 1px solid #ecf3f9;
+            border: 1px solid #E3EDEF;
             overflow: hidden;
         }
         .card-title {
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1.1rem;
             padding: 1rem 1.5rem;
-            background: #fafdff;
-            border-bottom: 1px solid #ecf3f9;
+            background: #F5F9FA;
+            border-bottom: 1px solid #E3EDEF;
+            color: #25252B;
         }
         .user-list, .msg-list {
             list-style: none;
@@ -132,15 +137,15 @@
         }
         .user-list li, .msg-list li {
             padding: 0.8rem 1.5rem;
-            border-bottom: 1px solid #f0f4fa;
+            border-bottom: 1px solid #EFF4F5;
             font-size: 0.9rem;
         }
         .user-list li:last-child, .msg-list li:last-child {
-        border-bottom: none;
+            border-bottom: none;
         }
         .msg-meta {
             font-size: 0.75rem;
-            color: #6c86a3;
+            color: #6B8890;
             margin-top: 5px;
         }
         @media (max-width: 700px) {
